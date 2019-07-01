@@ -1,0 +1,258 @@
+<!-- https://www.thingiverse.com/thing:265901/files -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Love Sculpture</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script> 
+
+    <script>
+        AFRAME.registerComponent("fly", {
+            schema: {
+                stepFactor: { type: "number", default: 0.001},
+                isFlying: { type: "boolean", default: true }
+            },
+            tick: function () {
+                if (this.data.isFlying) {
+                    let newP = this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+                    this.el.setAttribute('position', newP)
+                }
+            }
+        });
+    </script>
+  </head>
+  <body>
+
+    <a-scene antialias="true">
+      
+      <a-assets>
+        <img id="ny02-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny02.jpg?1535565459960">
+        <img id="ny03-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_01.jpg?1535565512786">
+        <img id="ny04-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_02.jpg?1535565510722">
+        <img id="ny05-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_03.jpg?1535565511548">
+        <img id="ny06-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_04.jpg?1535565507224">
+        <img id="ny07-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+        <img id="union1-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fmain.JPG?1536215311404">
+        <img id="union2-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fpartial2.jpg?1536215313423">
+        <img id="union3-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fpartial3.jpg?1536215318413">
+        <img id="union4-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Froad.jpg?1536215320444">
+        <img id="union5-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fvertical1.jpg?1536215324222">
+        <img id="subway01-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_05.jpg?1536231128723">
+        <img id="subway02-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_03.jpg?1536231126697">
+        <img id="subway03-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_04.jpg?1536231126842">
+        <img id="subway04-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_11.jpg?1536231128445">
+        <img id="subway05-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_10.jpg?1536231127086">
+        <img id="subway06-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_09.jpg?1536231128802">
+        <img id="subway07-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_08.jpg?1536231131107">
+        <img id="subway08-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_06.jpg?1536231128968">
+        <img id="subway09-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_07.jpg?1536231129143">
+        <img id="subway10-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fsubway_12.jpg?1536231131377">
+        <img id="subway11-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Ftracks01.jpg?1536231131711">
+        <img id="subway12-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Ftracks02.jpg?1536231129471">
+        <img id="works_01-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_11.jpg?1536231511013">
+        <img id="works_02-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_02.jpg?1536231511143">
+        <img id="works_03-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_08.jpg?1536231511447">
+        <img id="works_04-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_03.jpg?1536231511561">
+        <img id="works_05-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_01.jpg?1536231512261">
+        <img id="works_06-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_07.jpg?1536231513078">
+        <img id="works_07-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_10.jpg?1536231515212">
+        <img id="works_08-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_04.jpg?1536231515213">
+        <img id="works_09-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_06.jpg?1536231515632">
+        <img id="works_10-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_09.jpg?1536231515954">
+        <img id="works_11-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_05.jpg?1536231516154">
+        <img id="works_12-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fworks_12.jpg?1536231516606">
+
+      </a-assets>
+      
+      <a-entity 
+          id="beep"
+          position="-10 0 29.253"
+          sound="src: url(https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2FNew%20Recording%208.m4a?1536234559799); autoplay: true">
+      </a-entity>
+      
+      <!--              RIGHT SIDE -->
+             
+<a-entity id="right" position="5.899 0 4.31">
+        <a-image src="#union1-img" position="11.009 1.776 5.347" rotation="0 90 0" scale="15 15 15"></a-image>
+        <a-image src="#union2-img" position="4.636 0.78 -4.941" rotation="0 90 0" scale="4 4 5"></a-image>
+        <a-image src="#union3-img" position="2.358 2.725 8.369" rotation="0 90 0" scale="3 3 10"></a-image>
+        <a-image src="#union4-img" position="-1.267 -6.764 -2.705" rotation="90 90 0" scale="16 10 10" material="" geometry=""></a-image><a-image src="#union4-img" position="-15.536 -9.153 -2.705" rotation="90 90 0" scale="16 10 10"></a-image>
+        <a-image src="#union5-img" position="5.688 0.982 1.493" rotation="0 -90 0" scale="5 10 8"></a-image>
+      </a-entity>
+<!--              END RIGHT SIDE -->
+      
+            <!--              LEFT AND BACK -->
+             
+    <a-entity id="left-back">
+        <a-image src="#works_01-img" position="-12.347 0 11.825" rotation="0 90 0" scale="5 5 5"></a-image>
+        <a-image src="#works_02-img" position="-15.662 -5.012 -1.524" rotation="0 90 0" scale="1 2 5"></a-image>
+        <a-image src="#works_03-img" position="5.903 4.119 13.767" rotation="0 180 0" scale="3 3 10"></a-image>
+        <a-image src="#works_04-img" position="-12.076 -1.545 5.665" rotation="0 90 0" scale="4 2 10"></a-image>
+        <a-image src="#works_05-img" position="0 0 16.148" rotation="0 180 0" scale="8 5 8"></a-image>
+        <a-image src="#works_06-img" position="-30.851 -1.097 9.485" rotation="0 -90 0" scale="15 30 8"></a-image>
+        <a-image src="#works_07-img" position="6.591 1 13.649" scale="5 3 8"></a-image>
+        <a-image src="#works_08-img" position="-6.275 2.509 24.25" scale="20 20 15"></a-image>
+        <a-image src="#works_09-img" position="-3.969 -1.73 13.639" scale="5 3 8"></a-image>
+        <a-image src="#works_10-img" position="-23.778 3 -9.154" rotation="0 -90 0" scale="10 20 8"></a-image>
+        <a-image src="#works_11-img" position="-13.603 0 -5.004" rotation="0 -90 0" scale="4 8 8"></a-image>
+        <a-image src="#works_12-img" position="-17.034 0 0" rotation="0 -90 0" scale="5 10 8"></a-image>
+      </a-entity>
+<!--              LEFT AND  BACK -->
+      
+<!--       SUBWAY -->
+      <a-entity id="subway" position="0 -10 0">
+            <a-image src="#subway01-img" position="6.101 -1.89 -2.398" rotation="0 90 0" scale="10 5 5"></a-image>
+            <a-image src="#subway02-img" position="5.192 -2.341 -5.294" rotation="0 90 0" scale="1 4 5"></a-image>
+            <a-image src="#subway03-img" position="2.083 -1.527 3.278" rotation="0 90 0" scale="20 0.5 5"></a-image>
+            <a-image src="#subway04-img" position="-6.435 -3.337 -7.683" scale="6 6 5"></a-image>
+            <a-image src="#subway05-img" position="-3.968 0 9.471" scale="5 5 5" visible="false"></a-image>
+            <a-image src="#subway06-img" position="-3.376 -6.625 -6.384" scale="2 3 5"></a-image>
+            <a-image src="#subway07-img" position="-7.94 -11.668 -12.786" scale="15 15 5"></a-image>
+            <a-image src="#subway08-img" position="-7.033 -1.853 10.104" rotation="0 180 0" scale="5 5 5"></a-image>
+            <a-image src="#subway09-img" position="-13.753 0 0" scale="5 5 5" visible="false"></a-image>
+            <a-image src="#subway10-img" position="-1.511 -4.9 3.99" scale="5 5 5"></a-image>
+            <a-image src="#subway11-img" position="-4.041 2.005 0" rotation="90 0 0" scale="5 5 5" visible="false"></a-image>
+            <a-image src="#subway12-img" position="0.583 0 0" scale="5 5 5"></a-image>
+        </a-entity>
+<!--       END SUBWAY -->
+      
+      
+
+      
+
+      
+        <a-gltf-model 
+          src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Flove%20sculpture%20red.glb?1535453526033" 
+          scale="4 4 4" 
+          position="0 1 -4.5">
+        </a-gltf-model>
+
+        <a-entity 
+          id="text" 
+          look-at="[camera]"
+          geometry="primitive:plane;height:1.5;width:2" 
+          material="color:red;opacity:0.6" 
+          position="-2.8396767277119035 1.2612374286602859 -2.8973376863319382">
+
+           <a-entity position="0 -0.47845566069737533 -0.5223153998985355" >
+
+            <a-text value="LOVE" 
+            position="-0.8518768902884246 1.027 0.5407308975578747"></a-text>
+    
+            <a-text value="Robert Indiana" 
+                  position="-0.85 0.831 0.541"
+                  width="3">
+                    
+              <a-entity 
+                id="interface" 
+                sound="src: url(https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny_01.m4a?1535565683962); 
+                autoplay: true; 
+                loop: true">   
+              </a-entity>   
+            </a-text>
+             
+          
+            <a-text value="Date" 
+                  position="-0.85 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="1966 - 1999" 
+                  position="-0.85 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Medium" 
+                  position="-0.1 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="Polychrome Aluminium" 
+                  position="-0.1 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Dimensions" 
+                  position = "-0.85 0.34 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="144 x 144 x 72 IN" 
+                  position="-0.85 0.206 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="365 x 365 x 182 CM"
+                  position="-0.85 0.095 0.541"
+                  width="2"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <a-entity id="back">
+
+        <a-entity 
+          id="back_01" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny03-img;" 
+          position="-3.825744314912638 1.8741766007222695 -6.050467243307555" 
+          scale="1 3 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_02" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny05-img;" 
+          position="2.132528626279232 3.617316054362497 -8.822472921041406" 
+          scale="1 5 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_03" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny06-img;" 
+          position="2.8 0.3745 -4.3"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_04" 
+          geometry="primitive:plane;height:1;width:10" 
+          material="src:#ny07-img;" 
+          position="-0.199 -1.4455545946642487 -5.245080157760429"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_05" 
+          geometry="primitive:plane;height:20;width:20" 
+           material="src:#ny02-img;" 
+          position="-7.2456879624918695 2.3363406698510385 -23.90152747075163">
+        </a-entity>
+
+        </a-entity>
+
+        
+
+
+      <a-light type="ambient" castshadow:true; position="0 3 1" intensity="0.5"></a-light>
+
+
+      
+      
+      <a-light type="directional" castshadow:true;="" position="0 4.245146355114085 4.892365898811313" light="type:point;intensity:0.5;groundColor:#a6a6a6;decay:0.5" visible="">
+      </a-light>
+      
+
+      <a-plane color="#404040" rotation="-90 0 0" position="0 0 -3.6668338653272783" material="color:#fefefe; opacity: 0.8" geometry="height:2.3;width:2.3"></a-plane>
+      
+
+       <a-sky color="#FFF" radius="100"></a-sky> 
+      
+      <a-camera id="camera" position="0 0 3" fly wasd-controls-enabled="false" look>
+          <a-cursor id="cursor" material="color:red; opacity:0"></a-cursor>
+      </a-camera>
+
+     
+    </a-scene>
+  </body>
+</html>
+
+
+
+
+

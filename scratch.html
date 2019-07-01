@@ -1,0 +1,624 @@
+<html>
+  <head>
+    <title>A-Frame Workshop</title>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="bkgrnd-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fbackground3.jpg?1535444514184">
+        <a-mixin id="checkpoint"></a-mixin>
+        <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+      </a-assets>
+
+      <a-gltf-model 
+          src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Flove%20sculpture%20red.glb?1535453526033" 
+          scale="4 4 4" 
+          position="-0.1 2.3 -1.0169439868054704">
+      </a-gltf-model>
+    
+    
+      <a-box position="-0.017 0.32776518992397574 0.03806126463571091" 
+           color="#474747"
+           scale= "1.893 1.853 1">
+      </a-box>
+    
+    
+      <a-text value="LOVE" 
+            position="-0.8518768902884246 1.027 0.5407308975578747"></a-text>
+    
+      <a-text value="Robert Indiana" 
+            position="-0.85 0.831 0.541"
+            width="3"></a-text>
+    
+      <a-text value="Date" 
+            position="-0.85 0.635 0.541"
+            width="3"></a-text>
+    
+      <a-text value="1966 - 1999" 
+            position="-0.85 0.500 0.541"
+            width="2"></a-text>
+    
+      <a-text value="Medium" 
+            position="-0.1 0.635 0.541"
+            width="3"></a-text>
+    
+      <a-text value="Polychrome Aluminium" 
+            position="-0.1 0.500 0.541"
+            width="2"></a-text>
+    
+      <a-text value="Dimensions" 
+            position = "-0.85 0.34 0.541"
+            width="3"></a-text>
+    
+      <a-text value="144 x 144 x 72 IN" 
+            position="-0.85 0.206 0.541"
+            width="2"></a-text>
+    
+      <a-text value="365 x 365 x 182 CM"
+            position="-0.85 0.095 0.541"
+            width="2"></a-text>
+    
+
+      <a-light type="directional" 
+             castshadow:true;="" 
+             position="0 4.974193451659429 5.787220770538489"
+             >
+      </a-light>
+
+      <a-sky src="#bkgrnd-img"></a-sky> 
+      
+      <a-entity position="1 1.1740598339765778 1">
+        <a-cylinder checkpoint="offset:0 1.6 0" radius="0.5" height="0.1" position="-1.0750509545211226 0 -3.8554745625304854" color="#474747" material="" geometry="" rotation="90 0 0"></a-cylinder>
+        <a-cylinder checkpoint="offset:0 1.6 0" radius="0.5" height="0.1" position="2.416564209449067 0 -0.880746803086156" color="#474747" material="" geometry="" rotation="0 0 90"></a-cylinder>
+        <a-cylinder checkpoint="offset:0 1.6 0" radius="0.5" height="0.1" position="-4.313019940267829 0 -0.9153265060507252" color="#474747" material="" geometry="" rotation="0 0 90"></a-cylinder>
+        <a-cylinder checkpoint="offset:0 1.6 0" radius="0.5" height="0.1" position="-1.0123025313327714 0 2.062290151755934" color="#474747" material="" geometry="" rotation="90 0 0"></a-cylinder>
+      </a-entity>
+    
+      <a-entity look-controls camera
+        position="0 2 2.9"
+        universal-controls="movementControls: checkpoint"
+        checkpoint-controls="mode: animate">
+        <a-entity cursor
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+          material="color: #CCC; shader: flat;">
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
+
+
+
+
+
+
+<!-- https://www.thingiverse.com/thing:265901/files -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, WebVR! - A-Frame</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent("fly", {
+            schema: {
+                stepFactor: { type: "number", default: 0.01 },
+                isFlying: { type: "boolean", default: true }
+            },
+            tick: function () {
+                if (this.data.isFlying) {
+                    let newP = this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+                    this.el.setAttribute('position', newP)
+                }
+            }
+        });
+    </script>
+  </head>
+  <body>
+
+    <script>
+      AFRAME.registerComponent("continous-movement", {
+        schema : 
+        {
+          stepFactor : {
+            type : "number",
+            default : 0.001
+          }
+        },
+        tick : function()
+        { 
+          this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+        }
+      });
+      
+AFRAME.registerComponent('automove-controls', {
+    init: function () {
+        this.speed = 0.05;
+        this.isMoving = true;
+        this.velocityDelta = new THREE.Vector3();
+    },
+    isVelocityActive: function () {
+        return this.isMoving;
+    },
+    getVelocityDelta: function () {
+        this.velocityDelta.z = this.isMoving ? -this.speed : 0;
+        return this.velocityDelta.clone();
+    }
+});
+      
+
+    </script>
+    <a-scene>
+      
+      <a-assets>
+        <img id="ny02-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny02.jpg?1535565459960">
+        <img id="ny03-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_01.jpg?1535565512786">
+        <img id="ny04-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_02.jpg?1535565510722">
+        <img id="ny05-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_03.jpg?1535565511548">
+        <img id="ny06-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_04.jpg?1535565507224">
+        <img id="ny07-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+      </a-assets>
+
+      
+
+      
+        <a-gltf-model 
+          src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Flove%20sculpture%20red.glb?1535453526033" 
+          scale="4 4 4" 
+          position="0 1 -4.5">
+        </a-gltf-model>
+
+        <a-entity 
+          id="text" 
+          geometry="primitive:plane;height:1.5;width:2" 
+          material="color:red;opacity:0.6" 
+          position="-2.8396767277119035 1.2612374286602859 -2.8973376863319382">
+
+           <a-entity position="0 -0.47845566069737533 -0.5223153998985355">
+
+            <a-text value="LOVE" 
+            position="-0.8518768902884246 1.027 0.5407308975578747"></a-text>
+    
+            <a-text value="Robert Indiana" 
+                  position="-0.85 0.831 0.541"
+                  width="3">
+                    
+
+<!--               <a-entity 
+                id="interface" 
+                sound="src: url(https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny_01.m4a?1535565683962); 
+                autoplay: true; 
+                loop: true" 
+                        >   </a-entity>    -->
+            </a-text>
+          
+            <a-text value="Date" 
+                  position="-0.85 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="1966 - 1999" 
+                  position="-0.85 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Medium" 
+                  position="-0.1 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="Polychrome Aluminium" 
+                  position="-0.1 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Dimensions" 
+                  position = "-0.85 0.34 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="144 x 144 x 72 IN" 
+                  position="-0.85 0.206 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="365 x 365 x 182 CM"
+                  position="-0.85 0.095 0.541"
+                  width="2"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <a-entity id="back">
+
+        <a-entity 
+          id="back_01" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny03-img;" 
+          position="-3.825744314912638 1.8741766007222695 -6.050467243307555" 
+          scale="1 3 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_02" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny05-img;" 
+          position="2.132528626279232 3.617316054362497 -8.822472921041406" 
+          scale="1 5 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_03" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny06-img;" 
+          position="2.8 0.3745 -4.3"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_04" 
+          geometry="primitive:plane;height:1;width:10" 
+          material="src:#ny07-img;" 
+          position="-0.199 -1.4455545946642487 -5.245080157760429"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_05" 
+          geometry="primitive:plane;height:20;width:20" 
+           material="src:#ny02-img;" 
+          position="-7.2456879624918695 2.3363406698510385 -23.90152747075163">
+        </a-entity>
+
+        </a-entity>
+
+        <a-entity id="right" position="1.8332698643356178 0 3.677743149457556" rotation="0 -90 0">
+
+          <a-entity 
+            id="right_01" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny03-img;" 
+            position="-3.825744314912638 1.8741766007222695 -6.050467243307555" 
+            scale="1 3 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_02" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny05-img;" 
+            position="2.132528626279232 3.617316054362497 -8.822472921041406" 
+            scale="1 5 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_03" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny04-img;" 
+            position="2.8 0.3745 -4.3"
+            scale="1 1 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_04" 
+            geometry="primitive:plane;height:1;width:10" 
+            material="src:#ny07-img;" 
+            position="-0.199 -1.4455545946642487 -5.245080157760429"
+            scale="1 1 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_05" 
+            geometry="primitive:plane;height:20;width:20" 
+             material="src:#ny02-img;" 
+            position="7.031869255719107 2.3363406698510385 -23.901527470751628">
+          </a-entity>
+
+        </a-entity>
+
+
+
+      <a-light type="ambient" castshadow:true; position="0 3 1" intensity="0.5"></a-light>
+
+
+      
+      
+      <a-light type="directional" castshadow:true;="" position="0 4.245146355114085 4.892365898811313" light="type:point;intensity:0.5;groundColor:#a6a6a6;decay:0.5" visible="">
+      </a-light>
+      
+
+      <a-plane color="#404040" rotation="-90 0 0" position="0 0 -3.6668338653272783" material="color:#fefefe; opacity: 0.8" geometry="height:2.3;width:2.3"></a-plane>
+      
+
+       <a-sky color="#FFF" radius="100"></a-sky> 
+      
+      <a-camera id="camera" position="0 5 10" fly wasd-controls-enabled="false" look>
+          <a-cursor id="cursor" color="black"></a-cursor>
+      </a-camera>
+
+<!--             <a-entity id="player"
+                camera
+                look-controls
+                universal-controls="movementControls: automove, gamepad, keyboard"  
+                position="0 1.5 0">
+
+      </a-entity> -->
+
+
+<!--       <a-entity id="player"
+                camera
+                look-controls
+                continous-movement="stepFactor:0.001"
+                universal-controls="movementControls: gamepad, keyboard"    
+                position="0 1.5 0">
+
+      </a-entity> -->
+     
+    </a-scene>
+  </body>
+</html>
+
+
+
+
+<!-- https://www.thingiverse.com/thing:265901/files -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Love Sculpture</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script> 
+
+    <script>
+        AFRAME.registerComponent("fly", {
+            schema: {
+                stepFactor: { type: "number", default: 0.01 },
+                isFlying: { type: "boolean", default: true }
+            },
+            tick: function () {
+                if (this.data.isFlying) {
+                    let newP = this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+                    this.el.setAttribute('position', newP)
+                }
+            }
+        });
+    </script>
+  </head>
+  <body>
+
+    <script>
+//       AFRAME.registerComponent("continous-movement", {
+//         schema : 
+//         {
+//           stepFactor : {
+//             type : "number",
+//             default : 0.001
+//           }
+//         },
+//         tick : function()
+//         { 
+//           this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+//         }
+//       });
+      
+// AFRAME.registerComponent('automove-controls', {
+//     init: function () {
+//         this.speed = 0.05;
+//         this.isMoving = true;
+//         this.velocityDelta = new THREE.Vector3();
+//     },
+//     isVelocityActive: function () {
+//         return this.isMoving;
+//     },
+//     getVelocityDelta: function () {
+//         this.velocityDelta.z = this.isMoving ? -this.speed : 0;
+//         return this.velocityDelta.clone();
+//     }
+// });
+      
+
+    </script>
+    <a-scene antialias="true">
+      
+      <a-assets>
+        <img id="ny02-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny02.jpg?1535565459960">
+        <img id="ny03-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_01.jpg?1535565512786">
+        <img id="ny04-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_02.jpg?1535565510722">
+        <img id="ny05-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_03.jpg?1535565511548">
+        <img id="ny06-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_04.jpg?1535565507224">
+        <img id="ny07-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+        <img id="union1-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+        <img id="union2-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+        <img id="union3-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+        <img id="union4-img" src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fedited_05.jpg?1535565505910">
+
+      
+      </a-assets>
+
+      
+
+      
+        <a-gltf-model 
+          src="https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Flove%20sculpture%20red.glb?1535453526033" 
+          scale="4 4 4" 
+          position="0 1 -4.5">
+        </a-gltf-model>
+
+        <a-entity 
+          id="text" 
+          look-at="[camera]"
+          geometry="primitive:plane;height:1.5;width:2" 
+          material="color:red;opacity:0.6" 
+          position="-2.8396767277119035 1.2612374286602859 -2.8973376863319382">
+
+           <a-entity position="0 -0.47845566069737533 -0.5223153998985355" >
+
+            <a-text value="LOVE" 
+            position="-0.8518768902884246 1.027 0.5407308975578747"></a-text>
+    
+            <a-text value="Robert Indiana" 
+                  position="-0.85 0.831 0.541"
+                  width="3">
+                    
+              <a-entity 
+                id="interface" 
+                sound="src: url(https://cdn.glitch.com/1244aa74-5494-4064-889a-dea7bf841c8f%2Fny_01.m4a?1535565683962); 
+                autoplay: true; 
+                loop: true" 
+                        >   </a-entity>   
+            </a-text>
+             
+             
+<!--              RIGHT SIDE -->
+             
+             
+             
+             
+<!--              END RIGHT SIDE -->
+          
+            <a-text value="Date" 
+                  position="-0.85 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="1966 - 1999" 
+                  position="-0.85 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Medium" 
+                  position="-0.1 0.635 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="Polychrome Aluminium" 
+                  position="-0.1 0.500 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="Dimensions" 
+                  position = "-0.85 0.34 0.541"
+                  width="3"></a-text>
+          
+            <a-text value="144 x 144 x 72 IN" 
+                  position="-0.85 0.206 0.541"
+                  width="2"></a-text>
+          
+            <a-text value="365 x 365 x 182 CM"
+                  position="-0.85 0.095 0.541"
+                  width="2"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <a-entity id="back">
+
+        <a-entity 
+          id="back_01" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny03-img;" 
+          position="-3.825744314912638 1.8741766007222695 -6.050467243307555" 
+          scale="1 3 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_02" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny05-img;" 
+          position="2.132528626279232 3.617316054362497 -8.822472921041406" 
+          scale="1 5 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_03" 
+          geometry="primitive:plane;height:2;width:3" 
+          material="src:#ny06-img;" 
+          position="2.8 0.3745 -4.3"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_04" 
+          geometry="primitive:plane;height:1;width:10" 
+          material="src:#ny07-img;" 
+          position="-0.199 -1.4455545946642487 -5.245080157760429"
+          scale="1 1 1">
+        </a-entity>
+
+        <a-entity 
+          id="back_05" 
+          geometry="primitive:plane;height:20;width:20" 
+           material="src:#ny02-img;" 
+          position="-7.2456879624918695 2.3363406698510385 -23.90152747075163">
+        </a-entity>
+
+        </a-entity>
+
+        <a-entity id="right" position="1.8332698643356178 0 3.677743149457556" rotation="0 -90 0">
+
+          <a-entity 
+            id="right_01" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny03-img;" 
+            position="-3.825744314912638 1.8741766007222695 -6.050467243307555" 
+            scale="1 3 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_02" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny05-img;" 
+            position="2.132528626279232 3.617316054362497 -8.822472921041406" 
+            scale="1 5 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_03" 
+            geometry="primitive:plane;height:2;width:3" 
+            material="src:#ny04-img;" 
+            position="2.8 0.3745 -4.3"
+            scale="1 1 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_04" 
+            geometry="primitive:plane;height:1;width:10" 
+            material="src:#ny07-img;" 
+            position="-0.199 -1.4455545946642487 -5.245080157760429"
+            scale="1 1 1">
+          </a-entity>
+
+          <a-entity 
+            id="right_05" 
+            geometry="primitive:plane;height:20;width:20" 
+             material="src:#ny02-img;" 
+            position="7.031869255719107 2.3363406698510385 -23.901527470751628">
+          </a-entity>
+
+        </a-entity>
+
+
+
+      <a-light type="ambient" castshadow:true; position="0 3 1" intensity="0.5"></a-light>
+
+
+      
+      
+      <a-light type="directional" castshadow:true;="" position="0 4.245146355114085 4.892365898811313" light="type:point;intensity:0.5;groundColor:#a6a6a6;decay:0.5" visible="">
+      </a-light>
+      
+
+      <a-plane color="#404040" rotation="-90 0 0" position="0 0 -3.6668338653272783" material="color:#fefefe; opacity: 0.8" geometry="height:2.3;width:2.3"></a-plane>
+      
+
+       <a-sky color="#FFF" radius="100"></a-sky> 
+      
+      <a-camera id="camera" position="0 0 3" fly wasd-controls-enabled="false" look>
+          <a-cursor id="cursor" color="red"></a-cursor>
+      </a-camera>
+
+     
+    </a-scene>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
